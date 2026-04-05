@@ -1,0 +1,13 @@
+{
+  "identifier": "default",
+  "description": "Default capability for AI-BOS Lens",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:event:allow-emit",
+    "core:event:allow-listen",
+    "shell:allow-open",
+    "global-shortcut:allow-register",
+    "global-shortcut:allow-unregister"
+  ]
+}

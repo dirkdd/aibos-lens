@@ -1,0 +1,9 @@
+{
+  "identifier": "default",
+  "description": "Default capability for AI-BOS Lens",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open"
+  ]
+}

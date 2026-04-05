@@ -14,4 +14,9 @@ export default defineConfig({
     hmr: host ? { protocol: "ws", host, port: 5174 } : undefined,
     watch: { ignored: ["**/src-tauri/**"] },
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    setupFiles: [],
+  },
 });

@@ -13,6 +13,7 @@ export default function OverlayHeader() {
   const meetingStatus = useAppStore((s) => s.meetingStatus);
   const meeting = useAppStore((s) => s.meeting);
   const serviceStatuses = useAppStore((s) => s.serviceStatuses);
+  const endMeeting = useAppStore((s) => s.endMeeting);
 
   const isLive = meetingStatus === "active";
   const title = meeting?.client ?? meeting?.title ?? "AI-BOS Lens";
@@ -29,6 +30,15 @@ export default function OverlayHeader() {
       <div className="flex gap-1.5" style={{ WebkitAppRegion: "no-drag" } as React.CSSProperties}>
         {isLive && (
           <ServiceIndicators statuses={serviceStatuses} />
+        )}
+        {isLive && (
+          <button
+            onClick={endMeeting}
+            className="text-zinc-500 hover:text-red-400 text-xs p-1 transition-colors"
+            title="End meeting"
+          >
+            ✕
+          </button>
         )}
       </div>
     </div>

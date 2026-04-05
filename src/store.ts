@@ -37,6 +37,7 @@ interface AppState {
   meeting: MeetingInfo | null;
   startMeeting: (info: MeetingInfo) => void;
   endMeeting: () => void;
+  setMeetingStatus: (status: MeetingStatus) => void;
 
   // Service statuses
   serviceStatuses: ServiceStatuses;
@@ -97,6 +98,7 @@ export const useAppStore = create<AppState>((set) => ({
 
   startMeeting: (info) => set({ meeting: info, meetingStatus: "active" }),
   endMeeting: () => set({ meetingStatus: "ended" }),
+  setMeetingStatus: (status) => set({ meetingStatus: status }),
 
   setServiceStatus: (service, status) =>
     set((state) => ({

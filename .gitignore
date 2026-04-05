@@ -27,3 +27,5 @@ npm-debug.log*
 
 # Tauri
 src-tauri/WixTools/
+.superpowers/
+.worktrees/

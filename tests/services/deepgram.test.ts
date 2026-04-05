@@ -1,29 +1,35 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { DeepgramService } from "../../src/services/deepgram";
 
-vi.mock("@deepgram/sdk", () => ({
-  createClient: vi.fn(() => ({
-    listen: {
-      live: vi.fn(() => ({
-        on: vi.fn(),
-        send: vi.fn(),
-        requestClose: vi.fn(),
-        getReadyState: vi.fn(() => 1),
-      })),
+const mockSocket = {
+  on: vi.fn(),
+  sendMedia: vi.fn(),
+  close: vi.fn(),
+};
+
+vi.mock("@deepgram/sdk", () => {
+  class DeepgramClient {
+    listen = {
+      v1: {
+        connect: vi.fn(() => Promise.resolve(mockSocket)),
+      },
+    };
+    constructor(_apiKey: string) {}
+  }
+  return {
+    DeepgramClient,
+    ListenV1Model: {
+      Nova3: "nova-3",
     },
-  })),
-  LiveTranscriptionEvents: {
-    Open: "open",
-    Transcript: "transcript",
-    UtteranceEnd: "utteranceEnd",
-    Close: "close",
-    Error: "error",
-  },
-}));
+  };
+});
 
 describe("DeepgramService", () => {
   let service: DeepgramService;
-  beforeEach(() => { service = new DeepgramService("test-api-key"); });
+  beforeEach(() => {
+    vi.clearAllMocks();
+    service = new DeepgramService("test-api-key");
+  });
 
   it("initializes in disconnected state", () => {
     expect(service.getStatus()).toBe("disconnected");
